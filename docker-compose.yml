@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  gateway:
+    image: nginx:alpine
+    ports: ["443:443"]
+    volumes: ["./nginx/pizza.conf:/etc/nginx/conf.d/default.conf", "./certs:/etc/nginx/certs"]
+  ms-clientes:
+    image: python:3.11-slim
+    command: python -m http.server 8081 --bind 0.0.0.0
+  ms-productos:
+    image: python:3.11-slim
+    command: python -m http.server 8082 --bind 0.0.0.0
+  ms-pedidos:
+    image: python:3.11-slim
+    command: python -m http.server 8083 --bind 0.0.0.0
